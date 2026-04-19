@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../lib/api';
+import { safeJsonParse } from '../lib/fetchWrapper';
 
 export default function Schools() {
   const { token, user } = useAuth();
@@ -29,10 +30,10 @@ export default function Schools() {
 
   const loadTeacherCodes = async () => {
     try {
-      const data = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/schools/teacher-codes`, {
+      const data = await fetch(`/api/schools/teacher-codes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const json = await data.json();
+      const json = await safeJsonParse(data);
       setTeacherCodes(Array.isArray(json) ? json : []);
     } catch (error) {
       console.error('Error loading teacher codes:', error);
@@ -42,7 +43,7 @@ export default function Schools() {
 
   const createSchool = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/schools`, {
+      await fetch(`/api/schools`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ export default function Schools() {
 
   const createTeacherCode = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/schools/teacher-codes`, {
+      await fetch(`/api/schools/teacher-codes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

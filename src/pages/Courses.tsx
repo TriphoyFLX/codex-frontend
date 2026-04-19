@@ -18,7 +18,7 @@ const XIcon = () => (
   </svg>
 );
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API = "";
 
 export default function Courses() {
   const { token, user } = useAuth();
@@ -276,7 +276,7 @@ export default function Courses() {
 
 /* ─── Course Card ─────────────────────────────────────────── */
 function CourseCard({ course, onClick, showSchool }: { course: any; onClick: () => void; showSchool?: boolean }) {
-  const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+  const API = "";
   return (
     <div className="course-card" onClick={onClick}>
       {/* image */}

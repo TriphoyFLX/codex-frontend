@@ -15,7 +15,7 @@ export default function Admin() {
   const loadUsers = async () => {
     if (!token) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/users`, {
+      const res = await fetch(`/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await safeJsonParse(res);
@@ -31,7 +31,7 @@ export default function Admin() {
     if (!confirm('Вы уверены, что хотите удалить этого пользователя?')) return;
     if (!token) return;
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/users/${userId}`, {
+      await fetch(`/api/admin/users/${userId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -44,7 +44,7 @@ export default function Admin() {
   const handleChangeRole = async (userId: string, newRole: string) => {
     if (!token) return;
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/users/${userId}/role`, {
+      await fetch(`/api/admin/users/${userId}/role`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

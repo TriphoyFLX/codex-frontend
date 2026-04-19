@@ -12,7 +12,7 @@ export default function Search() {
     if (!query.trim() || query.length < 3 || !token) return;
     try {
       const data = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/search?q=${encodeURIComponent(query)}`,
+        ,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const json = await data.json();
@@ -56,7 +56,7 @@ export default function Search() {
                 >
                   {user.profile?.avatar_url && (
                     <img
-                      src={user.profile.avatar_url.startsWith('http') ? user.profile.avatar_url : `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}${user.profile.avatar_url}`}
+                      src={user.profile.avatar_url.startsWith('http') ? user.profile.avatar_url : }
                       alt="Avatar"
                       className="w-10 h-10 rounded-full object-cover"
                     />

@@ -73,7 +73,7 @@ export default function Home() {
   const loadFeaturedCourse = async () => {
     try {
       const data = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/courses?scope=all`,
+        `/api/courses?scope=all`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const json = await data.json();
@@ -84,7 +84,7 @@ export default function Home() {
   const loadSocialStats = async () => {
     try {
       const data = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/users/me/social`,
+        `/api/users/me/social`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const json = await data.json();
@@ -304,7 +304,7 @@ export default function Home() {
               {featuredCourse.image_url ? (
                 <img
                   className="fc-img absolute inset-0"
-                  src={`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}${featuredCourse.image_url}`}
+                  src={}
                   alt={featuredCourse.title}
                 />
               ) : (

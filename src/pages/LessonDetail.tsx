@@ -20,7 +20,7 @@ export default function LessonDetail() {
   const loadLesson = async () => {
     if (!courseId || !stageId || !token) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/courses/${courseId}`, {
+      const res = await fetch(, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -38,7 +38,7 @@ export default function LessonDetail() {
   const handleCompleteLesson = async () => {
     if (!token) return;
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/courses/stages/${stageId}/complete`, {
+      await fetch(`/complete`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });

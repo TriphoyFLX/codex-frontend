@@ -28,7 +28,7 @@ const ClockIcon = () => (
   </svg>
 );
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API = "";
 
 /* ─── Shared style block ─────────────────────────────────────── */
 const STYLES = `
