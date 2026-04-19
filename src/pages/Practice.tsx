@@ -22,11 +22,6 @@ const CoinIcon = () => (
     <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>
   </svg>
 );
-const StarIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </svg>
-);
 const LightbulbIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
     <path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
@@ -166,17 +161,9 @@ const STYLES = `
 
 export default function Practice() {
   const { token } = useAuth();
-  const [dailyChallenge, setDailyChallenge] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
-  const [streak, setStreak] = useState<any>(null);
-  const [alreadyAttempted, setAlreadyAttempted] = useState(false);
+  const [streak, _setStreak] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'daily' | 'leaderboard' | 'game'>('daily');
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [startTime, setStartTime] = useState<number>(0);
-  const [hintUsed, setHintUsed] = useState(false);
-  const [showHint, setShowHint] = useState(false);
-  const [result, setResult] = useState<any>(null);
 
   // AI Coding Challenge State
   const [aiTask, setAiTask] = useState<any>(null);
@@ -189,68 +176,18 @@ export default function Practice() {
   const [gameState, setGameState] = useState<any>(null);
   const [gameEvent, setGameEvent] = useState<any>(null);
   const [showGameEvent, setShowGameEvent] = useState(false);
-  const [showUpgrades, setShowUpgrades] = useState(false);
+  const [_showUpgrades, setShowUpgrades] = useState(false);
   const [achievements, setAchievements] = useState<any[]>([]);
   const [gameLevel, setGameLevel] = useState<'easy' | 'medium' | 'hard'>('easy');
-  const [isGeneratingEvent, setIsGeneratingEvent] = useState(false);
+  const [_isGeneratingEvent, setIsGeneratingEvent] = useState(false);
 
-  useEffect(() => { if (token) { loadDailyChallenge(); loadLeaderboard(); } }, [token]);
-
-  const loadDailyChallenge = async () => {
-    try {
-      const r = await fetch(`${API}/api/challenges/daily`, { headers: { Authorization: `Bearer ${token}` } });
-      const json = await r.json();
-      setDailyChallenge(json.challenge);
-      setStreak(json.streak);
-      setAlreadyAttempted(json.alreadyAttempted);
-    } catch (e) { console.error(e); }
-  };
+  useEffect(() => { if (token) { loadLeaderboard(); } }, [token]);
 
   const loadLeaderboard = async () => {
     try {
       const r = await fetch(`${API}/api/challenges/leaderboard`, { headers: { Authorization: `Bearer ${token}` } });
       setLeaderboard(await r.json());
     } catch (e) { console.error(e); }
-  };
-
-  const getHint = async () => {
-    if (!dailyChallenge) return;
-    try {
-      const r = await fetch(`${API}/api/challenges/${dailyChallenge.id}/hint`, { headers: { Authorization: `Bearer ${token}` } });
-      setShowHint((await r.json()).hint);
-      setHintUsed(true);
-    } catch (e) { alert('Недостаточно монет для подсказки'); }
-  };
-
-  const submitAnswer = async () => {
-    if (!dailyChallenge || !userAnswer) return;
-    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
-    try {
-      const content = JSON.parse(dailyChallenge.content);
-      let answerToSend = userAnswer;
-      if (dailyChallenge.type === 'quiz') answerToSend = userAnswer;
-      else if (dailyChallenge.type === 'fill_blank') answerToSend = userAnswer;
-      else if (dailyChallenge.type === 'matching') answerToSend = JSON.parse(userAnswer);
-
-      const r = await fetch(`${API}/api/challenges/${dailyChallenge.id}/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ answer: answerToSend, timeSpent, usedHint: hintUsed }),
-      });
-      const json = await r.json();
-      setResult(json);
-      setShowAnswer(true);
-      loadDailyChallenge();
-    } catch (e) { console.error(e); }
-  };
-
-  const startChallenge = () => {
-    setStartTime(Date.now());
-    setUserAnswer('');
-    setShowHint(false);
-    setHintUsed(false);
-    setResult(null);
-    setShowAnswer(false);
   };
 
   // Business Game Functions
@@ -552,38 +489,6 @@ export default function Practice() {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const renderChallengeContent = () => {
-    if (!dailyChallenge) return null;
-    const content = JSON.parse(dailyChallenge.content);
-    if (dailyChallenge.type === 'quiz') {
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {content.questions.map((q: any, idx: number) => (
-            <div key={idx} style={{ fontFamily: 'Manrope', fontSize: 13, color: 'var(--text)' }}>
-              <p style={{ fontWeight: 600, marginBottom: 12 }}>{q.question}</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {q.options.map((opt: string, optIdx: number) => (
-                  <label key={optIdx} className="quiz-opt">
-                    <input type="radio" name={`q-${idx}`} value={opt} onChange={e => setUserAnswer(e.target.value)} disabled={showAnswer} />
-                    <span>{opt}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    } else if (dailyChallenge.type === 'fill_blank') {
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <p style={{ fontFamily: 'Manrope', fontSize: 15, color: 'var(--text)' }}>{content.text.replace('___', '________')}</p>
-          <input className="inp" value={userAnswer} onChange={e => setUserAnswer(e.target.value)} disabled={showAnswer} placeholder="Введите ответ" />
-        </div>
-      );
-    }
-    return <span className="mono-sm">Тип задания не поддерживается</span>;
   };
 
   return (

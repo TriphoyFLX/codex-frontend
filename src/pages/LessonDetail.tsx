@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm';
 export default function LessonDetail() {
   const { courseId, stageId } = useParams();
   const navigate = useNavigate();
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const [course, setCourse] = useState<any>(null);
   const [stage, setStage] = useState<any>(null);
   const [loading, setLoading] = useState(true);

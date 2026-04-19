@@ -7,16 +7,6 @@ const PlusIcon = () => (
     <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
   </svg>
 );
-const ArrowUpRight = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-  </svg>
-);
-const ChevronDown = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <polyline points="6 9 12 15 18 9"/>
-  </svg>
-);
 const ImageIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
     <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -193,8 +183,8 @@ export default function Courses() {
             <div className="px-8 py-10 mono-sm">Нет курсов от вашей школы</div>
           ) : (
             <div className="grid px-8 pt-6 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
-              {schoolCourses.map((c, i) => (
-                <CourseCard key={c.id} course={c} index={i} onClick={() => navigate(`/courses/${c.id}`)} />
+              {schoolCourses.map((c) => (
+                <CourseCard key={c.id} course={c} onClick={() => navigate(`/courses/${c.id}`)} />
               ))}
             </div>
           )}
@@ -212,8 +202,8 @@ export default function Courses() {
             <div className="px-8 py-10 mono-sm">Нет курсов</div>
           ) : (
             <div className="grid px-8 pt-6 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
-              {allCourses.map((c, i) => (
-                <CourseCard key={c.id} course={c} index={i} showSchool onClick={() => navigate(`/courses/${c.id}`)} />
+              {allCourses.map((c) => (
+                <CourseCard key={c.id} course={c} showSchool onClick={() => navigate(`/courses/${c.id}`)} />
               ))}
             </div>
           )}
@@ -285,7 +275,7 @@ export default function Courses() {
 }
 
 /* ─── Course Card ─────────────────────────────────────────── */
-function CourseCard({ course, index, onClick, showSchool }: { course: any; index: number; onClick: () => void; showSchool?: boolean }) {
+function CourseCard({ course, onClick, showSchool }: { course: any; onClick: () => void; showSchool?: boolean }) {
   const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
   return (
     <div className="course-card" onClick={onClick}>

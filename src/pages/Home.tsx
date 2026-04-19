@@ -62,10 +62,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [featuredCourse, setFeaturedCourse] = useState<any>(null);
   const [socialStats, setSocialStats] = useState<any>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     if (token) {
       loadFeaturedCourse();
       loadSocialStats();

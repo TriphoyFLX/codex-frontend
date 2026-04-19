@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Home from './Home';
