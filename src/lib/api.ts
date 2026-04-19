@@ -1,4 +1,4 @@
-const API_URL = '/api/proxy';
+const API_URL = 'http://159.194.202.140:5000';
 
 export interface User {
   id: string;
