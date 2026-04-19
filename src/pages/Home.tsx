@@ -304,7 +304,7 @@ export default function Home() {
               {featuredCourse.image_url ? (
                 <img
                   className="fc-img absolute inset-0"
-                  src={}
+                  src={`/uploads${featuredCourse.image_url}`}
                   alt={featuredCourse.title}
                 />
               ) : (

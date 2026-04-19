@@ -20,7 +20,7 @@ export default function LessonDetail() {
   const loadLesson = async () => {
     if (!courseId || !stageId || !token) return;
     try {
-      const res = await fetch(, {
+      const res = await fetch(`/api/courses/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
