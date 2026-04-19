@@ -2,11 +2,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "http://159.194.202.140:5000/api/:path*"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
