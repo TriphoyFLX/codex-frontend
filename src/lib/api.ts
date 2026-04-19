@@ -1,4 +1,4 @@
-const API_URL = 'https://159.194.202.140';
+const API_URL = '/api';
 
 export interface User {
   id: string;
