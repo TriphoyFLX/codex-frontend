@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { api } from '../lib/api';
 
 export default function Schools() {
   const { token, user } = useAuth();
@@ -19,10 +20,7 @@ export default function Schools() {
 
   const loadSchools = async () => {
     try {
-      const data = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/schools`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await data.json();
+      const json = await api.schools.getAll();
       setSchools(json);
     } catch (error) {
       console.error('Error loading schools:', error);

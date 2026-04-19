@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { safeJsonParse } from '../lib/fetchWrapper';
 
 export default function Admin() {
   const { token, user } = useAuth();
@@ -17,7 +18,7 @@ export default function Admin() {
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await res.json();
+      const data = await safeJsonParse(res);
       setUsers(data);
     } catch (error) {
       console.error('Error loading users:', error);
