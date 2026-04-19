@@ -2,15 +2,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Home from './pages/Home';
-import Feed from './pages/Feed';
 import ProfileSetup from './pages/ProfileSetup';
 import SchoolSelection from './pages/SchoolSelection';
 import EventDetail from './pages/EventDetail';
 import CourseDetail from './pages/CourseDetail';
 import LessonDetail from './pages/LessonDetail';
 import PublicProfile from './pages/PublicProfile';
-import Admin from './pages/Admin';
 
 function AppContent() {
   const { isAuthenticated, hasProfile, hasSchool, refreshUser } = useAuth();
