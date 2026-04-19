@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { User, AuthResponse, api } from '../lib/api';
+import { User, api } from '../lib/api';
 
 interface AuthContextType {
   user: User | null;
@@ -40,30 +40,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [token]);
 
   const login = async (email: string, password: string) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data: AuthResponse = await res.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      setToken(data.token);
-      setUser(data.user);
+    try {
+      const data = await api.auth.login(email, password);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setToken(data.token);
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
     }
   };
 
   const register = async (email: string, password: string, teacher_code?: string, school_id?: string) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, teacher_code, school_id }),
-    });
-    const data: AuthResponse = await res.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      setToken(data.token);
-      setUser(data.user);
+    try {
+      const data = await api.auth.register(email, password, teacher_code, school_id);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setToken(data.token);
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.error('Register error:', error);
+      throw error;
     }
   };
 
