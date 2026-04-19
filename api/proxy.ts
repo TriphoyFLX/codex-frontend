@@ -1,24 +1,22 @@
-export const config = {
-  runtime: 'edge',
-};
+const BACKEND_URL = 'http://159.194.202.140:5000';
 
-export default async function handler(req: Request) {
-  const url = new URL(req.url);
-  const path = url.pathname.replace('/api/proxy', '');
-  const searchParams = url.search;
+export default async function handler(req: any, res: any) {
+  const { method, url, headers, body } = req;
+  const path = url?.replace('/api/proxy', '') || '';
   
-  const response = await fetch(`http://159.194.202.140:5000${path}${searchParams}`, {
-    method: req.method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(req.headers.get('authorization') && { Authorization: req.headers.get('authorization')! }),
-    },
-    ...(req.method !== 'GET' && req.body && { body: req.body }),
-  });
-  
-  const data = await response.json();
-  return new Response(JSON.stringify(data), {
-    status: response.status,
-    headers: { 'Content-Type': 'application/json' },
-  });
+  try {
+    const response = await fetch(`${BACKEND_URL}${path}`, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(headers.authorization && { Authorization: headers.authorization }),
+      },
+      ...(method !== 'GET' && body && { body: JSON.stringify(body) }),
+    });
+    
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Proxy error' });
+  }
 }
