@@ -308,7 +308,7 @@ export default function Home() {
               {featuredCourse.image_url ? (
                 <img
                   className="fc-img absolute inset-0"
-                  src={featuredCourse.image_url.startsWith('http') ? featuredCourse.image_url : `/uploads${featuredCourse.image_url}`}
+                  src={featuredCourse.image_url.startsWith('http') ? featuredCourse.image_url : featuredCourse.image_url.startsWith('/uploads') ? featuredCourse.image_url : `/uploads${featuredCourse.image_url}`}
                   alt={featuredCourse.title}
                   onLoad={() => console.log('Course image loaded successfully')}
                   onError={(e) => {
