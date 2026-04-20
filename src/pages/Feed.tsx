@@ -78,7 +78,11 @@ export default function Feed() {
   };
 
   const handleCreatePost = async () => {
-    if (!newPost.trim() || !token) return;
+    console.log('handleCreatePost called', { newPost, token: !!token });
+    if (!newPost.trim() || !token) {
+      console.log('Early return - empty post or no token');
+      return;
+    }
     
     setUploading(true);
     try {
@@ -317,7 +321,10 @@ export default function Feed() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="disp" style={{ fontSize: 32, color: 'var(--text)' }}>Лента</h2>
         <button
-          onClick={() => setNewPost('')}
+          onClick={() => {
+            console.log('Create post button clicked');
+            setNewPost('');
+          }}
           className="btn-acid"
         >
           <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -326,14 +333,17 @@ export default function Feed() {
         </button>
       </div>
 
-      {newPost && (
+      {newPost !== null && (
         <div className="feed-card">
           <textarea
             id="post-content"
             name="content"
             placeholder="Что у вас нового?"
             value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
+            onChange={(e) => {
+              console.log('Textarea value changed:', e.target.value);
+              setNewPost(e.target.value);
+            }}
             className="feed-textarea"
             rows={3}
           />
