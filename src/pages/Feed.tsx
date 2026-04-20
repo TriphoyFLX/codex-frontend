@@ -64,7 +64,7 @@ export default function Feed() {
     formData.append('file', selectedFile);
     
     try {
-      const response = await fetch(`${API}/api/upload`, {
+      const response = await fetch(`/api/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -372,7 +372,7 @@ export default function Feed() {
             <div className="flex items-center gap-4 mb-4">
               {post.author?.profile?.avatar_url ? (
                 <img
-                  src={post.author.profile.avatar_url.startsWith('http') ? post.author.profile.avatar_url : `${API}${post.author.profile.avatar_url}`}
+                  src={post.author.profile.avatar_url.startsWith('http') ? post.author.profile.avatar_url : `/uploads${post.author.profile.avatar_url}`}
                   alt="Avatar"
                   className="feed-avatar"
                 />
