@@ -77,7 +77,11 @@ export default function Home() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const json = await data.json();
-      if (Array.isArray(json) && json.length > 0) setFeaturedCourse(json[0]);
+      console.log('Featured course data:', json);
+      if (Array.isArray(json) && json.length > 0) {
+        console.log('Setting featured course:', json[0]);
+        setFeaturedCourse(json[0]);
+      }
     } catch (e) { console.error(e); }
   };
 
@@ -304,8 +308,16 @@ export default function Home() {
               {featuredCourse.image_url ? (
                 <img
                   className="fc-img absolute inset-0"
-                  src={`/uploads${featuredCourse.image_url}`}
+                  src={featuredCourse.image_url.startsWith('http') ? featuredCourse.image_url : `/uploads${featuredCourse.image_url}`}
                   alt={featuredCourse.title}
+                  onLoad={() => console.log('Course image loaded successfully')}
+                  onError={(e) => {
+                    console.error('Failed to load course image:', {
+                      imageUrl: featuredCourse.image_url,
+                      constructedUrl: featuredCourse.image_url.startsWith('http') ? featuredCourse.image_url : `/uploads${featuredCourse.image_url}`,
+                      error: e
+                    });
+                  }}
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-100" />
