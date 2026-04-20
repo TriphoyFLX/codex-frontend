@@ -329,6 +329,8 @@ export default function Feed() {
       {newPost && (
         <div className="feed-card">
           <textarea
+            id="post-content"
+            name="content"
             placeholder="Что у вас нового?"
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
@@ -351,6 +353,8 @@ export default function Feed() {
             </button>
           </div>
           <input
+            id="post-image"
+            name="image"
             type="file"
             accept="image/*"
             onChange={handleFileSelect}
