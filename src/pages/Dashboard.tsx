@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
+import MobileAppbar from '../components/MobileAppbar';
 import Home from './Home';
 import Profile from './Profile';
 import Courses from './Courses';
@@ -72,10 +73,24 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Sidebar />
-      <Header />
-      <div className="ml-[280px] pt-20 p-8">
-        <h1 className="text-2xl font-bold mb-6">{tabNames[location.pathname] || location.pathname}</h1>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+      
+      {/* Desktop Header */}
+      <div className="hidden md:block">
+        <Header />
+      </div>
+      
+      {/* Mobile Appbar */}
+      <div className="md:hidden">
+        <MobileAppbar />
+      </div>
+      
+      {/* Main Content */}
+      <div className="md:ml-[280px] md:pt-20 pt-4 pb-20 md:pb-8 px-4 md:px-8">
+        <h1 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">{tabNames[location.pathname] || location.pathname}</h1>
         {renderContent()}
       </div>
     </div>

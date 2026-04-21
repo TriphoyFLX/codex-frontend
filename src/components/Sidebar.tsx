@@ -109,7 +109,7 @@ export default function Sidebar() {
         }
       `}</style>
 
-      <aside className="fixed z-[60] glass-effect rounded-3xl p-4 flex flex-col w-[260px] h-[calc(100vh-40px)] top-5 left-5 shadow-sm">
+      <aside className="hidden md:flex fixed z-[60] glass-effect rounded-3xl p-4 flex-col w-[260px] h-[calc(100vh-40px)] top-5 left-5 shadow-sm">
         {/* Header */}
         <div className="flex items-center gap-3 mb-8 px-2">
           <button 

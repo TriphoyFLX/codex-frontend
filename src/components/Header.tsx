@@ -48,7 +48,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-5 right-10 z-40 h-16 w-auto max-w-2xl">
+    <header className="hidden md:flex fixed top-5 right-10 z-40 h-16 w-auto max-w-2xl">
       <style>{`
         .glass-effect {
           background: rgba(255, 255, 255, 0.85);
