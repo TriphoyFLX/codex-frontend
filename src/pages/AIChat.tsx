@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import FormattedMessage from '../components/FormattedMessage';
 
 /* ─── Icons ─────────────────────────────────────────────────── */
 const Plus = () => (
@@ -189,7 +190,7 @@ export default function AIChat() {
                     <div key={msg.id} style={{ display: 'flex', justifyContent: msg.role === 'USER' ? 'flex-end' : 'flex-start' }}>
                       <div className="msg-bubble" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         {msg.role === 'USER' ? <UserIcon /> : <BotIcon />}
-                        <span>{msg.content}</span>
+                        <FormattedMessage content={msg.content} isUser={msg.role === 'USER'} />
                       </div>
                     </div>
                   ))}
