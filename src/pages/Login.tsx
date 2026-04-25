@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../lib/api';
+import EmailVerification from '../components/EmailVerification';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,7 +11,8 @@ export default function Login() {
   const [selectedSchool, setSelectedSchool] = useState('');
   const [schools, setSchools] = useState<any[]>([]);
   const [registerStep, setRegisterStep] = useState<'school' | 'details'>('school');
-  const { login, register } = useAuth();
+  const [showVerification, setShowVerification] = useState(false);
+  const { login } = useAuth();
 
   useEffect(() => {
     if (isRegister) {
@@ -35,7 +37,26 @@ export default function Login() {
           alert('Пожалуйста, выберите школу');
           return;
         }
-        await register(email, password, teacherCode || undefined, selectedSchool);
+        
+        // Send verification code first
+        const response = await fetch('/api/auth/register-with-verification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            password,
+            teacher_code: teacherCode || undefined,
+            school_id: selectedSchool
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.requiresVerification) {
+          setShowVerification(true);
+        } else {
+          alert(data.error || 'Registration failed');
+        }
       } else {
         await login(email, password);
       }
@@ -43,6 +64,16 @@ export default function Login() {
       console.error('Auth error:', error);
       alert('Authentication failed');
     }
+  };
+
+  const handleVerified = (token: string) => {
+    // Store token and user in auth context
+    localStorage.setItem('token', token);
+    window.location.reload(); // Simple way to trigger auth context update
+  };
+
+  const handleBackToRegister = () => {
+    setShowVerification(false);
   };
 
   const handleRegisterStep = () => {
@@ -185,6 +216,18 @@ export default function Login() {
           {isRegister ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
         </button>
       </div>
+
+      {/* Email Verification Modal */}
+      {showVerification && (
+        <EmailVerification
+          email={email}
+          password={password}
+          teacherCode={teacherCode || undefined}
+          schoolId={selectedSchool}
+          onVerified={handleVerified}
+          onBack={handleBackToRegister}
+        />
+      )}
     </div>
   );
 }
