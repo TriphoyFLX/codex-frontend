@@ -460,22 +460,6 @@ export default function Login() {
             <span className="cl-code-dim">{'}'}</span>
           </div>
 
-          {/* floating streak card */}
-          <div className="cl-bubble cl-bubble2">
-            <div style={{ display:'flex', alignItems:'center', gap:'8px', marginBottom:'8px' }}>
-              <div style={{ width:'8px', height:'8px', borderRadius:'50%', background:'#7fe99e', boxShadow:'0 0 8px #7fe99e' }} />
-              <span style={{ color:'rgba(255,255,255,0.75)', fontSize:'12px', fontWeight:600 }}>14-дневная серия</span>
-            </div>
-            <div style={{ display:'flex', gap:'4px' }}>
-              {Array.from({length:14}).map((_,i) => (
-                <div key={i} style={{
-                  width:'13px', height:'26px', borderRadius:'4px',
-                  background: i < 11 ? `rgba(93,69,253,${0.5 + i*0.04})` : 'rgba(255,255,255,0.08)',
-                }} />
-              ))}
-            </div>
-          </div>
-
           {/* Brand */}
           <div className="cl-brand">
             <div className="cl-brand-mark">
