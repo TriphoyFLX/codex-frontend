@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../lib/api';
 import EmailVerification from '../components/EmailVerification';
+import CodexLogo from '../assets/codexlogobar.svg';
 
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,600&display=swap');
@@ -463,11 +464,11 @@ export default function Login() {
           {/* Brand */}
           <div className="cl-brand">
             <div className="cl-brand-mark">
-              <svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                <path d="M9 7h6M9 11h4" strokeOpacity="0.6"/>
-              </svg>
+              <img 
+                src={CodexLogo}
+                alt="CodexLearn Logo" 
+                className="w-5 h-5 object-contain"
+              />
             </div>
             <span className="cl-brand-name">Codex <b>Learn</b></span>
           </div>

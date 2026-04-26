@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import CodexLogo from '../assets/codexlogobar.svg';
 
 const icons: Record<string, JSX.Element> = {
   feed: (
@@ -116,7 +117,11 @@ export default function Sidebar() {
             onClick={() => navigate('/home')}
             className="bg-gradient-to-br from-emerald-500 to-teal-600 p-2.5 rounded-xl text-white shadow-md hover:scale-105 transition"
           >
-            <span className="text-xl font-bold">C</span>
+            <img 
+              src={CodexLogo}
+              alt="CodexLearn Logo" 
+              className="w-6 h-6 object-contain"
+            />
           </button>
           <span className="font-bold text-gray-800 text-lg whitespace-nowrap">
             CodexLearn
