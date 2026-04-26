@@ -119,7 +119,7 @@ export default function Sidebar() {
             <img 
               src="/codexlogobar.png"
               alt="CodexLearn Logo" 
-              className="w-6 h-6 object-contain"
+              className="w-8 h-8 object-contain"
             />
           </button>
           <span className="font-bold text-gray-800 text-lg whitespace-nowrap">

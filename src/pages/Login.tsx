@@ -464,7 +464,7 @@ export default function Login() {
               <img 
                 src="/codexlogobar.png"
                 alt="CodexLearn Logo" 
-                className="w-5 h-5 object-contain"
+                className="w-8 h-8 object-contain"
               />
             </div>
             <span className="cl-brand-name">Codex <b>Learn</b></span>
