@@ -1,6 +1,5 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
-import CodexLogo from '../assets/codexlogobar.svg';
 
 const icons: Record<string, JSX.Element> = {
   feed: (
@@ -118,7 +117,7 @@ export default function Sidebar() {
             className="bg-gradient-to-br from-emerald-500 to-teal-600 p-2.5 rounded-xl text-white shadow-md hover:scale-105 transition"
           >
             <img 
-              src={CodexLogo}
+              src="/codexlogobar.png"
               alt="CodexLearn Logo" 
               className="w-6 h-6 object-contain"
             />
