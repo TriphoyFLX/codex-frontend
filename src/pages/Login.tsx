@@ -92,9 +92,7 @@ const STYLES = `
   }
   .cl-brand-mark {
     width: 42px; height: 42px; border-radius: 11px;
-    background: linear-gradient(135deg, #5D45FD 0%, #9B7FFF 100%);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 20px rgba(93,69,253,0.45);
   }
   .cl-brand-name {
     font-size: 19px; font-weight: 700; color: #fff;

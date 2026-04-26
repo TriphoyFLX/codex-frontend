@@ -114,7 +114,7 @@ export default function Sidebar() {
         <div className="flex items-center gap-3 mb-8 px-2">
           <button 
             onClick={() => navigate('/home')}
-            className="bg-gradient-to-br from-emerald-500 to-teal-600 p-2.5 rounded-xl text-white shadow-md hover:scale-105 transition"
+            className="p-2.5 rounded-xl hover:scale-105 transition"
           >
             <img 
               src="/codexlogobar.png"
